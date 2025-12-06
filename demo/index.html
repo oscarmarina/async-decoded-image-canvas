@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Demo - async-decoded-image-canvas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <meta name="description" content="async-decoded-image-canvas" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #f8f9fa;
+        color: #212529;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+      }
+
+      async-decoded-image-canvas {
+        box-shadow:
+          0 10px 15px -3px rgb(0, 0, 0, 0.1),
+          0 4px 6px -2px rgb(0, 0, 0, 0.05);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      a {
+        color: #0d6efd;
+      }
+
+      p {
+        text-align: center;
+      }
+
+      .mark {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 1px 2px 0 rgb(0, 0, 0, 0.05);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="mark">
+      Implements the strategy from: <br />
+      <a
+        href="https://calendar.perfplanet.com/2025/non-blocking-image-canvas/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >https://calendar.perfplanet.com/2025/non-blocking-image-canvas/</a
+      >
+    </p>
+    <async-decoded-image-canvas
+      src="https://upload.wikimedia.org/wikipedia/commons/2/21/%221ere_feuille_particuli%C3%A8re_du_Thibet%22_%28mention_ms%29_-_%28Anville%29_%3B_Deshulins_sculp._-_btv1b8491979b.jpg"
+      width="600"
+      height="300"
+      alt="map of Thibet"
+    ></async-decoded-image-canvas>
+    <p>
+      <a href="./image-without-decode.html" target="_blank" rel="noopener noreferrer">
+        Example compare with Blocking Decode (Native)
+      </a>
+    </p>
+
+    <script type="module" src="./entry.js"></script>
+  </body>
+</html>

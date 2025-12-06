@@ -1,0 +1,173 @@
+{
+  "name": "@blockquote-playground/async-decoded-image-canvas",
+  "version": "1.0.0-rc.1",
+  "description": "An image component that uses a cross-browser strategy to decode images off the main thread before rendering to canvas.",
+  "keywords": [
+    "lit",
+    "web-component",
+    "lit-element"
+  ],
+  "license": "MIT",
+  "author": "async-decoded-image-canvas",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    },
+    "./AsyncDecodedImageCanvas.js": {
+      "default": "./dist/AsyncDecodedImageCanvas.js"
+    },
+    "./async-decoded-image-canvas.js": {
+      "default": "./dist/define/async-decoded-image-canvas.js"
+    },
+    "./index.js": {
+      "default": "./dist/index.js"
+    },
+    "./async-decoded-image-canvas-styles.css.js": {
+      "default": "./dist/styles/async-decoded-image-canvas-styles.css.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "/src/",
+    "/dist/"
+  ],
+  "scripts": {
+    "analyze": "cem analyze --litelement --globs \"src/**/*.{js,ts}\" \"index.js\"",
+    "build": "npm run dev:vite && npm run build:lib && npm run build:tsc",
+    "build:lib": "vite build --config vite.lib.config.js",
+    "build:tsc": "tsc",
+    "dev:vite": "vite build",
+    "format": "npm run format:eslint && npm run format:prettier && npm run format:stylelint",
+    "format:eslint": "eslint . --fix",
+    "format:prettier": "prettier \"**/*.{js,ts,css,scss,html,json}\" --write --ignore-path .prettierignore",
+    "format:stylelint": "stylelint \"{demo,src}/**/*.{js,ts,css,scss,html}\" --fix --ignore-path .prettierignore",
+    "postinstall": "npm run sort:package",
+    "prepare": "husky",
+    "preview:vite": "vite preview",
+    "sass:watch": "sass-style-template -j ts",
+    "sort:package": "npx sort-package-json",
+    "start": "concurrently -k -r \"npm:vite\" \"npm:sass:watch\"",
+    "test": "vitest",
+    "test:watch": "vitest --browser.headless=false",
+    "vite": "vite"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,html}": [
+      "npm run format"
+    ],
+    "**/*.json": [
+      "npm run format:prettier"
+    ],
+    "**/*.{scss,css}": [
+      "npm run format:prettier",
+      "npm run format:stylelint"
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "overrides": [
+      {
+        "files": "*.{scss,css}",
+        "options": {
+          "singleQuote": false
+        }
+      },
+      {
+        "files": "*.json",
+        "options": {
+          "parser": "json-stringify"
+        }
+      }
+    ]
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard-scss",
+    "allowEmptyInput": true,
+    "rules": {
+      "custom-property-pattern": null,
+      "no-duplicate-selectors": null,
+      "color-function-notation": null,
+      "alpha-value-notation": null,
+      "media-feature-name-no-unknown": null,
+      "comment-empty-line-before": null,
+      "declaration-empty-line-before": null,
+      "property-no-vendor-prefix": null,
+      "selector-attribute-quotes": null,
+      "value-no-vendor-prefix": null
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.html"
+        ],
+        "customSyntax": "postcss-html"
+      },
+      {
+        "files": [
+          "**/*.{ts,js}"
+        ],
+        "customSyntax": "postcss-lit"
+      }
+    ]
+  },
+  "dependencies": {
+    "lit": "^3.3.1",
+    "ua-parser-js": "2.0.6"
+  },
+  "devDependencies": {
+    "@blockquote/cem-to-markdown-readme": "^1.0.0",
+    "@blockquote/rollup-plugin-total-bundlesize": "^2.2.0",
+    "@blockquote/sass-style-template": "^5.0.2",
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@eslint/js": "^9.39.1",
+    "@html-eslint/eslint-plugin": "^0.50.0",
+    "@html-eslint/parser": "^0.50.0",
+    "@open-wc/semantic-dom-diff": "^0.20.1",
+    "@open-wc/testing-helpers": "^3.0.1",
+    "@types/mocha": "^10.0.10",
+    "@typescript-eslint/parser": "^8.48.1",
+    "@vitest/browser-playwright": "^4.0.15",
+    "@vitest/coverage-istanbul": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15",
+    "@vitest/ui": "^4.0.15",
+    "chai-a11y-axe": "^1.5.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-html": "^8.1.3",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-lit": "^2.1.1",
+    "eslint-plugin-lit-a11y": "^5.1.1",
+    "eslint-plugin-wc": "^3.0.2",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "playwright": "^1.57.0",
+    "postcss-html": "^1.8.0",
+    "postcss-lit": "^1.3.1",
+    "prettier": "^3.7.4",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-node-externals": "^8.1.2",
+    "sort-package-json": "^3.5.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "tinyglobby": "^0.2.15",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1",
+    "vite": "^8.0.0-beta.0",
+    "vitest": "^4.0.15"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "customElements": "custom-elements.json"
+}

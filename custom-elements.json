@@ -1,0 +1,218 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/AsyncDecodedImageCanvas.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "![Lit](https://img.shields.io/badge/lit-3.0.0-blue.svg)\n\n\n## `<async-decoded-image-canvas>`\n\nAn image component that uses a cross-browser strategy to decode images off the main thread before rendering to canvas.\nThis standardizes behavior across Chrome, Firefox, and Safari to prevent main thread blocking.\n\n> 💡 Implements the strategy from [fastDrawImage](https://github.com/myshov/fastDrawImage) by \\@myshov and his article on [PerfPlanet](https://calendar.perfplanet.com/2025/non-blocking-image-canvas/).",
+          "name": "AsyncDecodedImageCanvas",
+          "members": [
+            {
+              "kind": "field",
+              "name": "__abortController",
+              "type": {
+                "text": "AbortController | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "src",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The src of the image to display.",
+              "attribute": "src",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "description": "The width of the canvas.",
+              "attribute": "width",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "height",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "description": "The height of the canvas.",
+              "attribute": "height",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "alt",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The alternative text for the image.",
+              "attribute": "alt"
+            },
+            {
+              "kind": "field",
+              "name": "__canvas",
+              "type": {
+                "text": "HTMLCanvasElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_errorTpl",
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "_drawImage",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_loadImage",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Promise<ImageBitmap>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "src",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "signal",
+                  "type": {
+                    "text": "AbortSignal"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "description": "The src of the image to display.",
+              "name": "src",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "src"
+            },
+            {
+              "description": "The width of the canvas.",
+              "name": "width",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "fieldName": "width"
+            },
+            {
+              "description": "The height of the canvas.",
+              "name": "height",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "fieldName": "height"
+            },
+            {
+              "description": "The alternative text for the image.",
+              "name": "alt",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "alt"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "async-decoded-image-canvas",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AsyncDecodedImageCanvas",
+          "declaration": {
+            "name": "AsyncDecodedImageCanvas",
+            "module": "src/AsyncDecodedImageCanvas.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AsyncDecodedImageCanvas",
+          "declaration": {
+            "name": "AsyncDecodedImageCanvas",
+            "module": "./AsyncDecodedImageCanvas.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/define/async-decoded-image-canvas.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "async-decoded-image-canvas",
+          "declaration": {
+            "name": "AsyncDecodedImageCanvas",
+            "module": "/src/AsyncDecodedImageCanvas.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles/async-decoded-image-canvas-styles.css.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { --_async-decoded-image-canvas-width: var(--async-decoded-image-canvas-width); --_async-decoded-image-canvas-height: var(--async-decoded-image-canvas-height); display: block; box-sizing: border-box; } :host([hidden]), [hidden] { display: none !important; } *, *::before, *::after { box-sizing: inherit; } canvas { display: block; width: var(--_async-decoded-image-canvas-width); height: var(--_async-decoded-image-canvas-height); } svg { display: flex; flex-direction: column; overflow: hidden; margin: auto; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles/async-decoded-image-canvas-styles.css.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

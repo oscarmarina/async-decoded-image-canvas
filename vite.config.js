@@ -1,0 +1,95 @@
+import {defineConfig} from 'vite';
+import {playwright} from '@vitest/browser-playwright';
+import {globSync} from 'tinyglobby';
+import copy from 'rollup-plugin-copy';
+import totalBundlesize from '@blockquote/rollup-plugin-total-bundlesize';
+
+const OUT_DIR = 'dev';
+const ENTRIES_DIR = 'demo';
+const ENTRIES_GLOB = [`${ENTRIES_DIR}/**/*.js`];
+
+const copyConfig = {
+  targets: [
+    {
+      src: [`${ENTRIES_DIR}/**/*.*`, `!${ENTRIES_GLOB}`],
+      dest: OUT_DIR,
+    },
+  ],
+  hook: 'writeBundle',
+};
+
+// https://github.com/vitejs/vite/discussions/1736#discussioncomment-5126923
+const entries = Object.fromEntries(
+  globSync(ENTRIES_GLOB).map((file) => {
+    const [key] = file.match(new RegExp(`(?<=${ENTRIES_DIR}/).*`)) || [];
+    return [key?.replace(/\.[^.]*$/, ''), file];
+  })
+);
+
+// https://vitejs.dev/config/
+// https://vite-rollup-plugins.patak.dev/
+
+export default defineConfig({
+  test: {
+    onConsoleLog(log, type) {
+      if (type === 'stderr' && log.includes('in dev mode')) {
+        return false;
+      }
+    },
+    include: ['test/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
+    browser: {
+      enabled: true,
+      headless: true,
+      provider: playwright(),
+      screenshotFailures: false,
+      instances: [
+        {
+          browser: 'chromium',
+          provider: playwright({
+            launchOptions: {
+              devtools: true,
+              args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu'],
+            },
+          }),
+        },
+        {
+          browser: 'webkit',
+        },
+      ],
+    },
+    coverage: {
+      provider: 'istanbul',
+      reportsDirectory: 'test/coverage/',
+      reporter: ['lcov', 'json', 'text-summary', 'html'],
+      enabled: true,
+      thresholds: {
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80,
+      },
+      include: ['**/src/**/*'],
+      exclude: ['**/src/**/index.*', '**/src/styles/'],
+    },
+  },
+  plugins: [copy(copyConfig), totalBundlesize()],
+  optimizeDeps: {
+    exclude: ['lit', 'lit-html'],
+  },
+  build: {
+    outDir: OUT_DIR,
+    rolldownOptions: {
+      preserveEntrySignatures: 'exports-only',
+      transform: {
+        target: ['chrome71'],
+      },
+      input: entries,
+      output: {
+        dir: OUT_DIR,
+        entryFileNames: '[name].js',
+        format: 'es',
+      },
+      treeshake: true,
+    },
+  },
+});
